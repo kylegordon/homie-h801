@@ -8,3 +8,6 @@ Uses the [Homie](https://github.com/marvinroger/homie-esp8266/releases) framewor
 All future flashes will not overwrite the wireless configuration.
 
 Best used with PlatformIO. Simply git clone, pio run -t upload, watch the dependencies download and compile, and then if required do the initial Homie configuration with the tool for Homie 2 at http://setup.homie-esp8266.marvinroger.fr/
+
+Can be OTA updated using MQTT, or homie-ota
+```./ota_updater.py -l 172.24.32.13 -t devices/ -i a020a61aafea /home/kyleg/Projects/homie-h801/.pioenvs/esp01_1m/firmware.bin ```

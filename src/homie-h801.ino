@@ -17,6 +17,9 @@ HomieNode temperatureNode("temperature", "temperature");
 HomieNode humidityNode("humidity", "humidity");
 
 HomieNode RGBLed("RGB", "value");
+HomieNode W1LED("W1", "value");
+HomieNode W2LED("W2", "value");
+
 
 void loopHandler() {
 

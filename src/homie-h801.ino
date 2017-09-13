@@ -51,8 +51,6 @@ HomieNode RGBLEDNode("RGB", "value");
 HomieNode W1LEDNode("W1", "value");
 HomieNode W2LEDNode("W2", "value");
 
-HomieNode TestNode("test", "value");
-
 HomieNode keepAliveNode("keepalive", "keepalive");
 
 // Keepliave tick handler
@@ -79,28 +77,28 @@ bool keepAliveValueHandler(const HomieRange& range, const String& value) {
   }
 }
 
-void RGBLEDStateHandler(const HomieRange& range, const String& value) {
+bool RGBLEDStateHandler(const HomieRange& range, const String& value) {
 }
 
-void W1LEDStateHandler(const HomieRange& range, const String& value) {
+bool W1LEDStateHandler(const HomieRange& range, const String& value) {
 }
 
-void W2LEDStateHandler(const HomieRange& range, const String& value) {
+bool W2LEDStateHandler(const HomieRange& range, const String& value) {
 }
 
-void TestNodeStateHandler(const HomieRange& range, const String& value) {}
+bool TestNodeStateHandler(const HomieRange& range, const String& value) {}
 
 void onHomieEvent(const HomieEvent& event) {
 }
 
 void loopHandler() {
+
 }
 
 void setupHandler() {
-        TestNode.setProperty("foo").send("bar");
-        //RGBLEDNode.setProperty("unit").send("C");
-        //W1LEDNode.setProperty("unit").send("%");
-        //W2LEDNode.setProperty("light").send("foo");
+        RGBLEDNode.setProperty("state").send("on");
+        W1LEDNode.setProperty("state").send("on");
+        W2LEDNode.setProperty("state").send("on");
 }
 
 void setup() {
@@ -110,14 +108,13 @@ void setup() {
         Homie.setSetupFunction(setupHandler);
         Homie.setLoopFunction(loopHandler);
 
-        TestNode.advertise("testnode").settable(TestNodeStateHandler);
-        // RGBLED.advertise("RGBLEDState").settable(RGBLEDStateHandler);
-        // W1LEDNode.advertise("W1LEDState").settable(W1LEDStateHandler);
-        // W2LED.advertise("W2LEDState").settable(W2LEDStateHandler);
+        RGBLEDNode.advertise("RGBLEDState").settable(RGBLEDStateHandler);
+        W1LEDNode.advertise("W1LEDState").settable(W1LEDStateHandler);
+        W2LEDNode.advertise("W2LEDState").settable(W2LEDStateHandler);
         keepAliveNode.advertise("tick").settable(keepAliveTickHandler);
         keepAliveNode.advertise("keepAliveValue").settable(keepAliveValueHandler);
 
-        //Homie.onEvent(onHomieEvent);
+        Homie.onEvent(onHomieEvent);
         Homie.setup();
 }
 

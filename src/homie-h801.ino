@@ -273,6 +273,7 @@ void sendState() {
   root.printTo(buffer, sizeof(buffer));
 
   RGBLEDNode.setProperty("message").send("in sendState");
+  RGBLEDNode.setProperty("state").send(buffer);
   //RGBLEDNode.setProperty("state").send('{"state": "ON"}');
   //client.publish(light_state_topic, buffer, true);
 
@@ -391,9 +392,9 @@ void onHomieEvent(const HomieEvent& event) {
 }
 
 void setupHandler() {
-        RGBLEDNode.setProperty("state").send("foo");
-        W1LEDNode.setProperty("state").send("foo");
-        W2LEDNode.setProperty("state").send("foo");
+        // RGBLEDNode.setProperty("state").send("foo");
+        // W1LEDNode.setProperty("state").send("foo");
+        // W2LEDNode.setProperty("state").send("foo");
 }
 
 void setup() {
@@ -424,19 +425,14 @@ void setColor(int inR, int inG, int inB) {
     inB = (255 - inB);
   }
 
-  RGBLEDNode.setProperty("message").send("setting colours");
-  // FIXME
-  // analogWrite(redPin, inR);
-  // analogWrite(greenPin, inG);
-  // analogWrite(bluePin, inB);
+  String debugmsg = "Setting R:" + String(inR) + " G:" + String(inG) + " B:" + String(inB);
 
-  Serial.println("Setting LEDs:");
-  Serial.print("r: ");
-  Serial.print(inR);
-  Serial.print(", g: ");
-  Serial.print(inG);
-  Serial.print(", b: ");
-  Serial.println(inB);
+  RGBLEDNode.setProperty("message").send(debugmsg);
+
+  analogWrite(RGB_LIGHT_RED_PIN, inR);
+  analogWrite(RGB_LIGHT_GREEN_PIN, inG);
+  analogWrite(RGB_LIGHT_BLUE_PIN, inB);
+
 }
 
 // From https://www.arduino.cc/en/Tutorial/ColorCrossfader

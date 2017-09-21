@@ -13,7 +13,7 @@ cache:
         - "~/.platformio"
 
 env:
-    - PLATFORMIO_CI_SRC=src/homie-h801.ino
+    - PLATFORMIO_CI_SRC=src/homie-h801.cpp
 
 install:
     - pip install -U platformio

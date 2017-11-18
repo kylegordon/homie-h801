@@ -3,8 +3,10 @@
 #include <EEPROM.h>
 #include <ArduinoJson.h>
 
+// #define DEBUG
+
 #define FW_NAME "homie-h801"
-#define FW_VERSION "2.0.0"
+#define FW_VERSION "2.0.1"
 
 /* Magic sequence for Autodetectable Binary Upload */
 const char *__FLAGGED_FW_NAME = "\xbf\x84\xe4\x13\x54" FW_NAME "\x93\x44\x6b\xa7\x75";
@@ -125,9 +127,10 @@ void setColor(int inR, int inG, int inB) {
     inB = (255 - inB);
   }
 
-  String debugmsg = "Setting R:" + String(inR) + " G:" + String(inG) + " B:" + String(inB);
-
-  RGBLEDNode.setProperty("message").send(debugmsg);
+  #ifdef DEBUG
+    String debugmsg = "Setting R:" + String(inR) + " G:" + String(inG) + " B:" + String(inB);
+    RGBLEDNode.setProperty("message").send(debugmsg);
+  #endif
 
   analogWrite(RGB_LIGHT_RED_PIN, inR);
   analogWrite(RGB_LIGHT_GREEN_PIN, inG);
@@ -230,12 +233,16 @@ bool processJson(String message) {
 
   JsonObject& root = jsonBuffer.parseObject(message);
 
-  RGBLEDNode.setProperty("message").send("JSON Processing");
-  RGBLEDNode.setProperty("message").send(message);
+  #ifdef DEBUG
+    RGBLEDNode.setProperty("message").send("JSON Processing");
+    RGBLEDNode.setProperty("message").send(message);
+  #endif
 
   if (!root.success()) {
-    Serial.println("parseObject() failed");
-    RGBLEDNode.setProperty("message").send("JSON Parsing failed");
+    #ifdef DEBUG
+      Serial.println("parseObject() failed");
+      RGBLEDNode.setProperty("message").send("JSON Parsing failed");
+    #endif
     return false;
   }
 
@@ -354,7 +361,9 @@ void sendState() {
   char buffer[root.measureLength() + 1];
   root.printTo(buffer, sizeof(buffer));
 
-  RGBLEDNode.setProperty("message").send("in sendState");
+  #ifdef DEBUG
+    RGBLEDNode.setProperty("message").send("in sendState");
+  #endif
   RGBLEDNode.setProperty("state").send(buffer);
   //RGBLEDNode.setProperty("state").send('{"state": "ON"}');
   //client.publish(light_state_topic, buffer, true);

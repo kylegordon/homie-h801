@@ -489,6 +489,7 @@ void setupHandler() {
 }
 
 void setup() {
+        Serial.begin(115200);
 
         Homie_setFirmware(FW_NAME, FW_VERSION);
         Homie.setLedPin(RED_PIN, HIGH);

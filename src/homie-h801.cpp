@@ -435,8 +435,8 @@ void loopHandler() {
 
           setColor(redVal, grnVal, bluVal); // Write current values to LED pins
 
-          Serial.print("Loop count: ");
-          Serial.println(loopCount);
+          // Serial.print("Loop count: ");
+          // Serial.println(loopCount);
           loopCount++;
         }
         else {

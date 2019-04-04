@@ -13,12 +13,11 @@ cache:
         - "~/.platformio"
 
 env:
-    - PLATFORMIO_CI_SRC=src/homie-h801.ino
+    - PLATFORMIO_CI_SRC=src/homie-h801.cpp
 
 install:
     - pip install -U platformio
-    #- platformio lib -g install Homie
-    - platformio lib -g install ArduinoJson https://github.com/marvinroger/homie-esp8266/archive/develop.zip
 
 script:
-    - platformio ci --board=esp01_1m
+    - platformio lib update
+    - platformio run

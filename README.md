@@ -2,6 +2,9 @@
 
 # homie-h801
 
+# DEPRECATED 
+## In favour of [Tasmota](https://github.com/arendst/Sonoff-Tasmota)
+
 A work in progress for the H801 WiFi LED controller
 
 Uses the [Homie](https://github.com/marvinroger/homie-esp8266/releases) framework, so you don't need to worry about wireless connectivity, wireless configuration persistence, and all that. Simply compile and upload, and configure using the Homie configuration tool.
